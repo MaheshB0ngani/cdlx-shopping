@@ -17,7 +17,7 @@ export default {
   methods: {
     buynow() {
       this.$store.state.cart.forEach(function(el){window.Cdlx.q.push([
-        "add_event",
+        "push_event",
         {
           key: "Purchase",
           segmentation: {

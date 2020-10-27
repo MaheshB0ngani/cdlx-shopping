@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
     <title><%= htmlWebpackPlugin.options.title %></title>
     <!-- todo inject cdlx/gtm tag script-->
     <!-- <script type="text/javascript">
@@ -50,15 +53,25 @@
         s.parentNode.insertBefore(cly, s);
       })();
     </script> -->
-<!-- Google Tag Manager -->
-      <script type="text/javascript">
+    <!-- Google Tag Manager -->
+    <script type="text/javascript">
       function getTagConfig() {
         return [
           {
+            eventName: "Play video",
+            category: "video",
+            eventSelector: ".play-button",
+            eventType: "click",
+            eventContext: {
+              hitType: "event",
+              eventCategory: "Videos",
+              eventAction: "play",
+              eventLabel: "Fall Campaign",
+            },
+          },
+          {
             eventName: "redeem button click",
             category: "redemption",
-            eventTrigger: "byClassName",
-            eventElement: "redeem-button",
             eventSelector: ".redeem-button",
             eventType: "click",
             eventContext: {
@@ -116,8 +129,8 @@
           },
         ];
       }
-      </script>
-<script type="text/javascript">
+    </script>
+    <script type="text/javascript">
       //some default pre init
       var Cdlx = Cdlx || {};
       Cdlx.q = Cdlx.q || [];
@@ -125,13 +138,26 @@
       var _caPush = Cdlx.q.push;
 
       //provide cdlx initialization parameters
-      Cdlx.app_key = "10-26-ma-app-key";
-      Cdlx.url = "http://localhost:5000";
+      Cdlx.app_key = "10-27-direct-app-key";
+      // Cdlx.url = "http://localhost:5000";
+      Cdlx.url = "https://mp-analytics-qa.cardlytics.com/api";
       // let trackerUrl = "https://mp-analytics-dev.cardlytics.com/js/index.js";
       Cdlx.debug = true;
       Cdlx.force_post = true;
       Cdlx.isPureConsentBased = true;
-      Cdlx.consentsAllowed = ["views", "all_links"];
+      Cdlx.queryParamsToCaptureInfo = {
+        defaultAsInclude: true,
+        onlyIfExists: { key: "ref", value: "cdlx" },
+        params: [],
+        // params: [
+        //   { key: "advertiserId", isInclude: true },
+        //   { key: "institutionId", isInclude: true },
+        //   { key: "userId", isInclude: true },
+        //   { key: "campaignId", isInclude: true },
+        //   { key: "xyz", isInclude: true },
+        // ],
+      };
+      Cdlx.consentsAllowed = ["views", "all_links", "query-params"];
       Cdlx.q.push(["configure_track_click_events", getTagConfig()]);
       Cdlx.q.push([
         "setContextInfo",
@@ -143,24 +169,29 @@
       ]);
 
       //load Cdlx script asynchronously
-      (function () {
+      (function() {
         var cly = document.createElement("script");
         cly.type = "text/javascript";
         cly.async = true;
         cly.src = "https://mp-analytics-qa.cardlytics.com/js/index.js";
+        // cly.src = "http://localhost:1234/index.js";
 
-        cly.onload = function () {
+        cly.onload = function() {
           Cdlx.init();
         };
         let s = document.getElementsByTagName("script")[0];
         s.parentNode.insertBefore(cly, s);
       })();
     </script>
-  <!-- End Google Tag Manager -->
+    <!-- End Google Tag Manager -->
   </head>
   <body>
     <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+      <strong
+        >We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work
+        properly without JavaScript enabled. Please enable it to
+        continue.</strong
+      >
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->

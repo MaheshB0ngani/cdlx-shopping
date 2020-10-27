@@ -90,28 +90,27 @@ export default {
         button: "Done!",
       });
       this.$store.commit(Types.ADD_PRODUCT_TO_CART, this.product);
-      
-      // dataLayer.push({
-      //   event: "click",
-      //   ecommerce: {
-      //     currencyCode: "US",
-      //     add: {
-      //       // 'add' actionFieldObject measures.
-      //       products: [
-      //         {
-      //           //  adding a product to a shopping cart.
-      //           name: this.product.brand,
-      //           id: this.product.id,
-      //           price: this.product.price,
-      //           brand: this.product.brand,
-      //           category: this.product.category,
-      //           variant: this.product.title,
-      //           quantity: 1,
-      //         },
-      //       ],
-      //     },
-      //   },
-      // });
+      window.Cdlx.q.push({
+        eventType: "addtoCart",
+        ecommerce: {
+          currencyCode: "US",
+          add: {
+            // 'add' actionFieldObject measures.
+            products: [
+              {
+                //  adding a product to a shopping cart.
+                name: this.product.brand,
+                id: this.product.id,
+                price: this.product.price,
+                brand: this.product.brand,
+                category: this.product.category,
+                variant: this.product.title,
+                quantity: 1,
+              },
+            ],
+          },
+        },
+      });
       // console.log(dataLayer);
     },
     calculateOffSetLeftAndTop() {
